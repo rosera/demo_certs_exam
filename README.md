@@ -14,13 +14,13 @@ Example demo to display certifications.
 
 Main screen release note demo.
 
-![demo_cert_exam](https://github.com/rosera/demo_cert_exam/blob/main/screenshots/demo_cert.png "Mobile App")
+![cert_exam_main](https://github.com/rosera/demo_cert_exam/blob/main/screenshots/cert_exam_main.png "Mobile App")
 
 ## Certification Detail
 
 Detail screen showing release note.
 
-![demo_cert_exam](https://github.com/rosera/demo_cert_exam/blob/main/screenshots/demo_cert_detail.png "Mobile App")
+![cert_exam_detail](https://github.com/rosera/demo_cert_exam/blob/main/screenshots/cert_exam_detail.png "Mobile App")
 
 ## Packages
 
