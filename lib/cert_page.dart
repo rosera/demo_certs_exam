@@ -169,8 +169,9 @@ class _CertificationPageState extends State<CertificationPage> {
                         onTap: (){
                           Navigator.push(
                               context,
-                              MaterialPageRoute(builder: (context) => CertificationDetailPage(
-                                note: certificationExam[index],
+                              // MaterialPageRoute(builder: (context) => CertificationDetailPage(
+                              MaterialPageRoute(builder: (context) => CertificationTabPage(
+                                certification: certificationExam[index],
                               ))
                           );
                         },
