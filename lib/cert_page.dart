@@ -170,7 +170,7 @@ class _CertificationPageState extends State<CertificationPage> {
                           Navigator.push(
                               context,
                               // MaterialPageRoute(builder: (context) => CertificationDetailPage(
-                              MaterialPageRoute(builder: (context) => CertificationTabPage(
+                              MaterialPageRoute(builder: (context) => CertificationHomePage(
                                 certification: certificationExam[index],
                               ))
                           );
@@ -199,7 +199,7 @@ class _CertificationPageState extends State<CertificationPage> {
                                   child: Text(
                                     overflow: TextOverflow.ellipsis,
                                     // "${releaseNote.productTitle} release notes: ${releaseNote.productReleaseNotes.length}",
-                                    "${examItem.title}",
+                                    examItem.title,
                                     style: const TextStyle(
                                       // fontWeight: FontWeight.bold,
                                         fontSize: 16,

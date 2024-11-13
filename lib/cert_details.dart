@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
 import 'model/cert_model.dart';
 
-class CertificationTabPage extends StatefulWidget {
+class CertificationHomePage extends StatefulWidget {
   final CertificationItem certification;
 
   // This widget is the root of your application.
-  const CertificationTabPage({super.key, required this.certification});
+  const CertificationHomePage({super.key, required this.certification});
 
   @override
-  State<CertificationTabPage> createState() => _CertificationTabPageState();
+  State<CertificationHomePage> createState() => _CertificationHomePageState();
 }
 
-class _CertificationTabPageState extends State<CertificationTabPage> {
+class _CertificationHomePageState extends State<CertificationHomePage> {
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
@@ -21,26 +21,26 @@ class _CertificationTabPageState extends State<CertificationTabPage> {
           title: Text(widget.certification.title), // The title passed as a parameter
           // toolbarHeight: 15.0,
           bottom: const TabBar(
+            dividerColor: Colors.transparent,
+            indicatorColor: Colors.cyanAccent,
+            labelColor: Colors.cyanAccent,
+
             isScrollable: true,
             labelStyle: TextStyle(fontSize: 16.0),
             tabs: [
               Tab(text: 'Certification'),
               Tab(text: 'Topics'),
-              Tab(text: 'Training'),
+              Tab(text: 'Education'),
               Tab(text: 'Plan'),
             ],
           ),
         ),
         body: TabBarView(
           children: [
-            CertificationDetailPage(note: widget.certification),
-            CertificationTopicPage(note: widget.certification),
-            const Text('Training'),
-            const Text('Plan'),
-            // CertificationTab(providerCertifications: professional),
-            // CertificationTab(providerCertifications: associate),
-            // CertificationTab(providerCertifications: foundational),
-            // CertificationTab(providerCertifications: fellow),
+            CertificationTabPage(note: widget.certification),
+            TopicTabPage(note: widget.certification),
+            MediaTabPage(note: widget.certification),
+            PlanTabPage(note: widget.certification),
           ],
         ),
       ),
@@ -50,10 +50,10 @@ class _CertificationTabPageState extends State<CertificationTabPage> {
 
 
 
-class CertificationDetailPage extends StatelessWidget {
+class CertificationTabPage extends StatelessWidget {
   final CertificationItem note;
 
-  const CertificationDetailPage({super.key, required this.note});
+  const CertificationTabPage({super.key, required this.note});
 
   @override
   Widget build(BuildContext context) {
@@ -64,15 +64,15 @@ class CertificationDetailPage extends StatelessWidget {
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          SizedBox(height: 10.0),
+          const SizedBox(height: 10.0),
 
           // TODO: ADD HEADER
-          Padding(
-            padding: const EdgeInsets.fromLTRB(8.0, 0.0, 8.0, 0.0),
-            child: const Text('Overview',
+          const Padding(
+            padding: EdgeInsets.fromLTRB(8.0, 0.0, 8.0, 0.0),
+            child: Text('Overview',
                 style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold)),
           ),
-          SizedBox(height: 10.0),
+          const SizedBox(height: 10.0),
 
           // TODO: ADD OVERVIEW
           SizedBox(
@@ -95,8 +95,8 @@ class CertificationDetailPage extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.all(16.0),
                     child: Text(note.description,
-                        style: TextStyle(
-                          fontSize: 18.0,
+                        style: const TextStyle(
+                          fontSize: 16.0,
                     ),),
                   ),
                 ],
@@ -111,7 +111,7 @@ class CertificationDetailPage extends StatelessWidget {
             child: Text('Credential',
                 style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold)),
           ),
-          SizedBox(height: 10.0),
+          const SizedBox(height: 10.0),
 
           // TODO: CREDENTIAL
           Card(
@@ -139,7 +139,7 @@ class CertificationDetailPage extends StatelessWidget {
                     ),
                   ),
                 ),
-                SizedBox(width: 10.0),
+                const SizedBox(width: 10.0),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -161,7 +161,7 @@ class CertificationDetailPage extends StatelessWidget {
                           fontSize: 14.0,
                         )),
                     Text("Experience: ${note.experience}",
-                        style: TextStyle(
+                        style: const TextStyle(
                           fontSize: 14.0,
                         )),
                   ],
@@ -183,10 +183,10 @@ List<String> topics = [
   "Section Five",
 ];
 
-class CertificationTopicPage extends StatelessWidget {
+class TopicTabPage extends StatelessWidget {
   final CertificationItem note;
 
-  const CertificationTopicPage({super.key, required this.note});
+  const TopicTabPage({super.key, required this.note});
 
   @override
   Widget build(BuildContext context) {
@@ -217,6 +217,104 @@ class CertificationTopicPage extends StatelessWidget {
                    child: Text(topics[index].toString()),
                  );
                  // return const Text("Hello Topic");
+                }
+            ),
+          )
+        ],
+      ),
+    );
+  }
+}
+
+List<String> media = [
+  "Courses",
+  "Videos",
+  "Books",
+  "Blogs",
+  "Other",
+];
+
+class MediaTabPage extends StatelessWidget {
+  final CertificationItem note;
+
+  const MediaTabPage({super.key, required this.note});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      // appBar: AppBar(
+      //   title: Text(note.title), // The title passed as a parameter
+      // ),
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const SizedBox(height: 10.0),
+
+          // TODO: ADD HEADER
+          const Padding(
+            padding: EdgeInsets.fromLTRB(8.0, 0.0, 8.0, 0.0),
+            child: Text('Content',
+                style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold)),
+          ),
+          const SizedBox(height: 10.0),
+
+          // TODO: Display Topics
+          Expanded(
+            child: ListView.builder(
+                itemCount: media.length,
+                itemBuilder: (context, index) {
+                  return Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: Text(media[index].toString()),
+                  );
+                }
+            ),
+          )
+        ],
+      ),
+    );
+  }
+}
+
+List<String> plan = [
+  "Timetable",
+  "Analytics",
+  "Other",
+];
+
+class PlanTabPage extends StatelessWidget {
+  final CertificationItem note;
+
+  const PlanTabPage({super.key, required this.note});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      // appBar: AppBar(
+      //   title: Text(note.title), // The title passed as a parameter
+      // ),
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const SizedBox(height: 10.0),
+
+          // TODO: ADD HEADER
+          const Padding(
+            padding: EdgeInsets.fromLTRB(8.0, 0.0, 8.0, 0.0),
+            child: Text('Schedule',
+                style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold)),
+          ),
+          const SizedBox(height: 10.0),
+
+          // TODO: Display Topics
+          Expanded(
+            child: ListView.builder(
+                itemCount: plan.length,
+                itemBuilder: (context, index) {
+                  return Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: Text(plan[index].toString()),
+                  );
                 }
             ),
           )
