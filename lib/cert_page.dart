@@ -60,23 +60,23 @@ class _CertificationPageState extends State<CertificationPage> {
     Certifications providerCertifications =
         Certifications.fromJson(jsonResponse);
 
-    for (CertificationItem cert in providerCertifications.certificationItem) {
+//    for (CertificationItem cert in providerCertifications.certificationItem) {
     //
     //   // TODO: Set Favourite default
     //   // print('Fav is being set');
     //   favoritesCertificationMap[cert.tag] = false;
     //
-      if (cert.level == "Professional") {
-        professional.add(cert);
-      } else if (cert.level == "Associate") {
-        associate.add(cert);
-      } else if (cert.level == "Foundational") {
-        foundational.add(cert);
-      } else if (cert.level == "Fellow") {
-        fellow.add(cert);
-      }
+    //   if (cert.level == "Professional") {
+    //     professional.add(cert);
+    //   } else if (cert.level == "Associate") {
+    //     associate.add(cert);
+    //   } else if (cert.level == "Foundational") {
+    //     foundational.add(cert);
+    //   } else if (cert.level == "Fellow") {
+    //     fellow.add(cert);
+    //   }
     // }
-    }
+//    }
 
     // TODO: Set the flag
     // isCertificationFirstTime = false;
@@ -85,181 +85,365 @@ class _CertificationPageState extends State<CertificationPage> {
     return providerCertifications;
   }
 
+
   @override
   Widget build(BuildContext context) {
-    return DefaultTabController(
-      length: 4,
-      child: Scaffold(
-        appBar: AppBar(
-          toolbarHeight: 15.0,
-          bottom: const TabBar(
-            isScrollable: true,
-            labelStyle: TextStyle(fontSize: 16.0),
-            tabs: [
-              Tab(text: 'Professional'),
-              Tab(text: 'Associate'),
-              Tab(text: 'Foundational'),
-              Tab(text: 'Fellow'),
-            ],
+    return Scaffold(
+      appBar: AppBar(
+        // backgroundColor: Colors.black,
+        title: const Text('GCP Certifications'),
+      ),
+      body: Column(
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Wrap(
+              spacing: 8.0,
+              children: [
+                ChoiceChip(
+                  label: const Text('All'),
+                  selected: selectedFilter == 'All',
+                  onSelected: (bool selected) {
+                    setState(() {
+                      selectedFilter = 'All';
+                    });
+                  },
+                ),
+                ChoiceChip(
+                  label: const Text('Professional'),
+                  selected: selectedFilter == 'Professional',
+                  onSelected: (bool selected) {
+                    setState(() {
+                      selectedFilter = 'Professional';
+                    });
+                  },
+                ),
+                ChoiceChip(
+                  label: const Text('Associate'),
+                  selected: selectedFilter == 'Associate',
+                  onSelected: (bool selected) {
+                    setState(() {
+                      selectedFilter = 'Associate';
+                    });
+                  },
+                ),
+                ChoiceChip(
+                  label: const Text('Foundational'),
+                  selected: selectedFilter == 'Foundational',
+                  onSelected: (bool selected) {
+                    setState(() {
+                      selectedFilter = 'Foundational';
+                    });
+                  },
+                ),
+              ],
+            ),
           ),
-        ),
-        body: TabBarView(
-          children: [
-            CertificationTab(providerCertifications: professional),
-            CertificationTab(providerCertifications: associate),
-            CertificationTab(providerCertifications: foundational),
-            CertificationTab(providerCertifications: fellow),
-          ],
-        ),
+          Expanded(
+            child: FutureBuilder<Certifications>(
+              future: _certifications,
+              builder: (context, snapshot) {
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return const Center(child: CircularProgressIndicator());
+                } else if (snapshot.hasError) {
+                  return Center(child: Text('Error: ${snapshot.error}'));
+                } else if (!snapshot.hasData || snapshot.data!.certificationItem.isEmpty) {
+                  return const Center(child: Text('No Google Cloud certifications found.'));
+                }
+
+                // final releaseNotes = snapshot.data!;
+                // Filter release notes based on selected chip
+                final certificationExam = snapshot.data!.certificationItem.where((certificationItem) {
+                  if (selectedFilter == 'All') return true;
+                  return certificationItem.level == selectedFilter;
+                }).toList();
+
+                return ListView.builder(
+                  itemCount: certificationExam.length,
+                  itemBuilder: (context, index) {
+                    final examItem = certificationExam[index];
+                    return Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: GestureDetector(
+                        onTap: (){
+                          // Navigator.push(
+                          //     context,
+                          //     MaterialPageRoute(builder: (context) => CustomContentPage(
+                          //       note: releaseNote,
+                          //     ))
+                          // );
+                        },
+                        child: Card(
+                          // color: Colors.transparent,
+                          elevation: 2,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(8),
+                            // Adjust the radius as needed
+                            side: BorderSide(
+                              color: Colors.grey.withOpacity(0.5),
+                              // Set the opacity to 0.5 (50%)
+                              width: 1.0,
+                            ),
+                          ),
+                          child: Container(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+
+                                // Product Title
+                                Padding(
+                                  padding: const EdgeInsets.fromLTRB(8.0, 0.0, 8.0, 0.0),
+                                  child: SizedBox(
+                                    width: 350,
+                                    child: Text(
+                                      overflow: TextOverflow.ellipsis,
+                                      // "${releaseNote.productTitle} release notes: ${releaseNote.productReleaseNotes.length}",
+                                      "Product: ${examItem.title}",
+                                      style: const TextStyle(
+                                        // fontWeight: FontWeight.bold,
+                                          fontSize: 16),
+                                    ),
+                                  ),
+                                ),
+                                const SizedBox(width: 8),
+                                Text(examItem.level),
+                                Text(examItem.header),
+                                Text(examItem.questions),
+                                Padding(
+                                  padding: const EdgeInsets.fromLTRB(8.0, 0.0, 8.0, 0.0),
+                                  child: Text(
+                                    "Notes: ${examItem.description}",
+                                    style: const TextStyle(
+                                      // fontWeight: FontWeight.bold,
+                                        fontSize: 16),
+                                  ),
+                                ),
+                                // Text("Release note items: ${releaseNote.productReleaseNotes.length}"),
+                                Padding(
+                                  padding: const EdgeInsets.fromLTRB(8.0, 0.0, 8.0, 0.0),
+                                  child: Text(
+                                    "Tag: ${examItem.tag}",
+                                    style: const TextStyle(
+                                      // fontWeight: FontWeight.bold,
+                                        fontSize: 16),
+                                  ),
+                                ),
+                                const SizedBox(width: 10),
+                                // Text(releaseNote.),
+                                // Padding(
+                                //   padding: const EdgeInsets.all(8.0),
+                                //   child: Row(
+                                //     crossAxisAlignment: CrossAxisAlignment.start,
+                                //     children: [
+                                //       // Labels (Announcement, Fixed, Security)
+                                //       buildSectionLabels(releaseNote.productCategory),
+                                //
+                                //     ],
+                                //   ),
+                                // ),
+                                Padding(
+                                  padding: const EdgeInsets.fromLTRB(8.0, 0.0, 8.0, 0.0),
+                                  child: Text("${examItem.tag} | ${examItem.cost} | ${examItem.duration}",
+                                      style: const TextStyle(
+                                        fontSize: 14.0,
+                                      )
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                    );
+                  },
+                );
+              },
+            ),
+          ),
+        ],
       ),
     );
   }
-}
 
-class CertificationTab extends StatelessWidget {
-  final List<CertificationItem> providerCertifications;
 
-// This widget is the root of your application.
-  const CertificationTab({super.key, required this.providerCertifications});
 
-  @override
-  Widget build(BuildContext context) {
-    MediaQueryData queryData = MediaQuery.of(context);
-    double deviceWidth = queryData.size.width;
 
-    return ListView.builder(
-      itemCount: providerCertifications.length,
-      itemBuilder: (BuildContext context, int index) {
-        return SingleChildScrollView(
-          child: Card(
-            elevation: 0,
-            shape: RoundedRectangleBorder(
-                side: const BorderSide(color: Colors.black12, width: 1.0),
-                borderRadius: BorderRadius.circular(8)),
-            child: Padding(
-              padding: const EdgeInsets.all(10.0),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  const SizedBox(height: 10),
-
-                  // Row with image, divider, and text fields
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      Expanded(
-                        child: Image(
-                          image:
-                              Image.network(providerCertifications[index].image)
-                                  .image,
-                          width: (deviceWidth / 3),
-                          height: (deviceWidth / 3),
-                          fit: BoxFit.scaleDown,
-                          // alignment: Alignment.centerLeft,
-                        ),
-                        //child: Image.network('https://storage.googleapis.com/roselabs-poc-images/google-cloud-256.png'),
-                      ),
-                      const VerticalDivider(width: 5),
-                      const SizedBox(width: 10.0),
-                      // Two text in a column
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          SizedBox(
-                            width: deviceWidth - (deviceWidth / 3),
-                            child: Text(
-                              providerCertifications[index].title,
-                              maxLines: 2,
-                              overflow: TextOverflow.ellipsis,
-                              style: const TextStyle(
-                                  fontSize: 22, fontWeight: FontWeight.bold),
-                            ),
-                          ),
-                          const SizedBox(height: 10.0),
-                          Text(
-                            'Level: ${providerCertifications[index].level}',
-                            style: const TextStyle(fontSize: 18),
-                          ),
-                          const SizedBox(height: 5.0),
-                          SizedBox(
-                            width: deviceWidth - (deviceWidth / 3),
-                            child: Text(
-                              stripNonPrintingCharacters(
-                                  providerCertifications[index].description),
-                              maxLines: 20,
-                              overflow: TextOverflow.ellipsis,
-                              style: const TextStyle(fontSize: 14),
-                            ),
-                          ),
-                          const SizedBox(height: 10),
-                          SizedBox(
-                            width: deviceWidth - (deviceWidth / 3),
-                            child: Text(
-                              'Cost: ${providerCertifications[index].cost} | Duration: ${providerCertifications[index].duration} | Questions: ${providerCertifications[index].questions}',
-                              style: const TextStyle(
-                                  fontSize: 14, fontWeight: FontWeight.bold),
-                            ),
-                          ),
-                          // Links at the bottom of the card
-                          Row(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Row(children: [
-                                const Text(
-                                  'Exam',
-                                  style: TextStyle(fontSize: 12),
-                                ),
-                                IconButton(
-                                  onPressed: () {
-//                                                 launch('https://cloud.google.com/natural-language/docs?hl=en_US');
-                                  },
-                                  icon: const Icon(Icons.link),
-                                ),
-                              ]),
-                              const SizedBox(width: 10),
-                              Row(
-                                children: [
-                                  const Text(
-                                    'Guide',
-                                    style: TextStyle(fontSize: 12),
-                                  ),
-                                  IconButton(
-                                    onPressed: () {
-//                                               launch('https://cloud.google.com/natural-language/docs/quickstart?hl=en_US');
-                                    },
-                                    icon: const Icon(Icons.link),
-                                  ),
-                                ],
-                              ),
-                              const SizedBox(width: 10),
-                              Row(
-                                children: [
-                                  const Text(
-                                    'Register',
-                                    style: TextStyle(fontSize: 12),
-                                  ),
-                                  IconButton(
-                                    onPressed: () {
-//                                               launch('https://cloud.google.com/natural-language/docs/quickstart?hl=en_US');
-                                    },
-                                    icon: const Icon(Icons.link),
-                                  ),
-                                ],
-                              )
-                            ],
-                          ),
-                          const SizedBox(height: 10),
-                        ],
-                      ),
-                    ],
-                  ),
-//                                       const SizedBox(height: 2),
-                ],
-              ),
-            ),
-          ),
-        );
-      },
-    );
-  }
+//   @override
+//   Widget build(BuildContext context) {
+//     return DefaultTabController(
+//       length: 4,
+//       child: Scaffold(
+//         appBar: AppBar(
+//           toolbarHeight: 15.0,
+//           bottom: const TabBar(
+//             isScrollable: true,
+//             labelStyle: TextStyle(fontSize: 16.0),
+//             tabs: [
+//               Tab(text: 'Professional'),
+//               Tab(text: 'Associate'),
+//               Tab(text: 'Foundational'),
+//               Tab(text: 'Fellow'),
+//             ],
+//           ),
+//         ),
+//         body: TabBarView(
+//           children: [
+//             CertificationTab(providerCertifications: professional),
+//             CertificationTab(providerCertifications: associate),
+//             CertificationTab(providerCertifications: foundational),
+//             CertificationTab(providerCertifications: fellow),
+//           ],
+//         ),
+//       ),
+//     );
+//   }
+// }
+//
+// class CertificationTab extends StatelessWidget {
+//   final List<CertificationItem> providerCertifications;
+//
+// // This widget is the root of your application.
+//   const CertificationTab({super.key, required this.providerCertifications});
+//
+//   @override
+//   Widget build(BuildContext context) {
+//     MediaQueryData queryData = MediaQuery.of(context);
+//     double deviceWidth = queryData.size.width;
+//
+//     return ListView.builder(
+//       itemCount: providerCertifications.length,
+//       itemBuilder: (BuildContext context, int index) {
+//         return SingleChildScrollView(
+//           child: Card(
+//             elevation: 0,
+//             shape: RoundedRectangleBorder(
+//                 side: const BorderSide(color: Colors.black12, width: 1.0),
+//                 borderRadius: BorderRadius.circular(8)),
+//             child: Padding(
+//               padding: const EdgeInsets.all(10.0),
+//               child: Column(
+//                 mainAxisAlignment: MainAxisAlignment.start,
+//                 children: [
+//                   const SizedBox(height: 10),
+//
+//                   // Row with image, divider, and text fields
+//                   Row(
+//                     mainAxisAlignment: MainAxisAlignment.start,
+//                     children: [
+//                       Expanded(
+//                         child: Image(
+//                           image:
+//                               Image.network(providerCertifications[index].image)
+//                                   .image,
+//                           width: (deviceWidth / 3),
+//                           height: (deviceWidth / 3),
+//                           fit: BoxFit.scaleDown,
+//                           // alignment: Alignment.centerLeft,
+//                         ),
+//                         //child: Image.network('https://storage.googleapis.com/roselabs-poc-images/google-cloud-256.png'),
+//                       ),
+//                       const VerticalDivider(width: 5),
+//                       const SizedBox(width: 10.0),
+//                       // Two text in a column
+//                       Column(
+//                         crossAxisAlignment: CrossAxisAlignment.start,
+//                         children: [
+//                           SizedBox(
+//                             width: deviceWidth - (deviceWidth / 3),
+//                             child: Text(
+//                               providerCertifications[index].title,
+//                               maxLines: 2,
+//                               overflow: TextOverflow.ellipsis,
+//                               style: const TextStyle(
+//                                   fontSize: 22, fontWeight: FontWeight.bold),
+//                             ),
+//                           ),
+//                           const SizedBox(height: 10.0),
+//                           Text(
+//                             'Level: ${providerCertifications[index].level}',
+//                             style: const TextStyle(fontSize: 18),
+//                           ),
+//                           const SizedBox(height: 5.0),
+//                           SizedBox(
+//                             width: deviceWidth - (deviceWidth / 3),
+//                             child: Text(
+//                               stripNonPrintingCharacters(
+//                                   providerCertifications[index].description),
+//                               maxLines: 20,
+//                               overflow: TextOverflow.ellipsis,
+//                               style: const TextStyle(fontSize: 14),
+//                             ),
+//                           ),
+//                           const SizedBox(height: 10),
+//                           SizedBox(
+//                             width: deviceWidth - (deviceWidth / 3),
+//                             child: Text(
+//                               'Cost: ${providerCertifications[index].cost} | Duration: ${providerCertifications[index].duration} | Questions: ${providerCertifications[index].questions}',
+//                               style: const TextStyle(
+//                                   fontSize: 14, fontWeight: FontWeight.bold),
+//                             ),
+//                           ),
+//                           // Links at the bottom of the card
+//                           Row(
+//                             crossAxisAlignment: CrossAxisAlignment.start,
+//                             children: [
+//                               Row(children: [
+//                                 const Text(
+//                                   'Exam',
+//                                   style: TextStyle(fontSize: 12),
+//                                 ),
+//                                 IconButton(
+//                                   onPressed: () {
+// //                                                 launch('https://cloud.google.com/natural-language/docs?hl=en_US');
+//                                   },
+//                                   icon: const Icon(Icons.link),
+//                                 ),
+//                               ]),
+//                               const SizedBox(width: 10),
+//                               Row(
+//                                 children: [
+//                                   const Text(
+//                                     'Guide',
+//                                     style: TextStyle(fontSize: 12),
+//                                   ),
+//                                   IconButton(
+//                                     onPressed: () {
+// //                                               launch('https://cloud.google.com/natural-language/docs/quickstart?hl=en_US');
+//                                     },
+//                                     icon: const Icon(Icons.link),
+//                                   ),
+//                                 ],
+//                               ),
+//                               const SizedBox(width: 10),
+//                               Row(
+//                                 children: [
+//                                   const Text(
+//                                     'Register',
+//                                     style: TextStyle(fontSize: 12),
+//                                   ),
+//                                   IconButton(
+//                                     onPressed: () {
+// //                                               launch('https://cloud.google.com/natural-language/docs/quickstart?hl=en_US');
+//                                     },
+//                                     icon: const Icon(Icons.link),
+//                                   ),
+//                                 ],
+//                               )
+//                             ],
+//                           ),
+//                           const SizedBox(height: 10),
+//                         ],
+//                       ),
+//                     ],
+//                   ),
+// //                                       const SizedBox(height: 2),
+//                 ],
+//               ),
+//             ),
+//           ),
+//         );
+//       },
+//     );
+//   }
 }
