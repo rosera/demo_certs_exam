@@ -182,7 +182,7 @@ class _CertificationPageState extends State<CertificationPage> {
                             borderRadius: BorderRadius.circular(8),
                             // Adjust the radius as needed
                             side: BorderSide(
-                              color: Colors.grey.withOpacity(0.5),
+                              color: Colors.grey.withOpacity(0.25),
                               // Set the opacity to 0.5 (50%)
                               width: 1.0,
                             ),
@@ -198,14 +198,22 @@ class _CertificationPageState extends State<CertificationPage> {
                                   padding: const EdgeInsets.fromLTRB(8.0, 0.0, 2.0, 0.0),
                                   child: Text(
                                     overflow: TextOverflow.ellipsis,
-                                    // "${releaseNote.productTitle} release notes: ${releaseNote.productReleaseNotes.length}",
-                                    examItem.title,
+                                    examItem.header,
                                     style: const TextStyle(
                                       // fontWeight: FontWeight.bold,
                                         fontSize: 16,
                                         fontWeight: FontWeight.bold,
                                     ),
                                   ),
+                                ),
+                                SizedBox(height: 10.0),
+                                const Divider(
+                                  height: 1.0,
+                                  thickness: 0.5,
+                                  indent: 10.0,
+                                  endIndent: 20.0,
+                                  color: Colors.grey,
+
                                 ),
                                 const SizedBox(width: 10),
                                 // Text(examItem.level),
