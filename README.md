@@ -2,15 +2,30 @@
 
 A demo example of displaying certs.
 
-## Getting Started
+Example demo to display certifications.
 
-This project is a starting point for a Flutter application.
+- [ ] Products + Services
+- [ ] Read Release notes
+- [x] Certifications
+- [ ] Training
+- [ ] Events
 
-A few resources to get you started if this is your first Flutter project:
+## Certification
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+Main screen release note demo.
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+![demo_cert_exam](https://github.com/rosera/demo_cert_exam/blob/main/screenshots/demo_cert.png "Mobile App")
+
+## Certification Detail
+
+Detail screen showing release note.
+
+![demo_cert_exam](https://github.com/rosera/demo_cert_exam/blob/main/screenshots/demo_cert_detail.png "Mobile App")
+
+## Packages
+
+| Package                  | Description               |
+|--------------------------|---------------------------|
+| http                     | HTTP access methods       |
+| html                     | HTML parser               |
+| badges                   | Badge for icons placement |
