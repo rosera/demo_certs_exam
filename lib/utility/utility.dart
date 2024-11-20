@@ -8,6 +8,8 @@ Widget buildSectionCertLabels(String content, String imageLink) {
     return _buildCertLabel('A', imageLink, Colors.blueGrey);
   } else if (content.contains('Foundational')) {
     return _buildCertLabel('F', imageLink, Colors.deepOrange);
+  } else if (content.contains('Fellow')) {
+    return _buildCertLabel('F', imageLink, Colors.teal);
   } else {
     return const SizedBox();
   }

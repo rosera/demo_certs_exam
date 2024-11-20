@@ -1,3 +1,4 @@
+import '/model/topic_model.dart';
 
 // Certification
 // Information on the Google Cloud Certifications
@@ -15,6 +16,7 @@ class CertificationItem {
   final int cost;
   final int duration;
   final int experience;
+  final List<TopicItem>topics;
 
   // Constructor
   CertificationItem({
@@ -29,10 +31,15 @@ class CertificationItem {
     required this.cost,
     required this.duration,
     required this.experience,
+    required this.topics,
   });
 
   // Use a Factory to enable processing to be perform + return value
   factory CertificationItem.fromJson(Map<String, dynamic> json) {
+    var list = json['topics'] as List;
+    List<TopicItem> topicList = list.map((topics) =>
+        TopicItem.fromJson(topics)).toList();
+
     return CertificationItem(
       tag: json['tag'],
       level: json['level'],
@@ -45,6 +52,7 @@ class CertificationItem {
       cost: json['cost'],
       duration: json['duration'],
       experience: json['experience'],
+      topics: topicList,
     );
   }
 }

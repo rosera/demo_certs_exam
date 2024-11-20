@@ -219,17 +219,21 @@ class _CertificationPageState extends State<CertificationPage> {
                                 // Text(examItem.level),
                                 // Text(examItem.header),
                                 // Text(examItem.questions),
+
                                 Padding(
                                   padding: const EdgeInsets.fromLTRB(8.0, 10.0, 8.0, 10.0),
                                   child: Text(
                                     examItem.description,
                                     maxLines: 50,
                                     overflow: TextOverflow.ellipsis,
+                                    selectionColor: Colors.white60,
                                     style: const TextStyle(
                                       // fontWeight: FontWeight.bold,
-                                        fontSize: 16),
+                                      fontSize: 16,
+                                    ),
                                   ),
                                 ),
+
                                 const SizedBox(width: 10),
                                 Padding(
                                   padding: const EdgeInsets.all(8.0),
@@ -239,15 +243,25 @@ class _CertificationPageState extends State<CertificationPage> {
                                       // Labels (Announcement, Fixed, Security)
                                       // buildSectionLabels(examItem.level),
                                       buildSectionCertLabels(examItem.level, examItem.image),
-
+                                      SizedBox(width: 10.0),
+                                      Text(
+                                        examItem.level,
+                                        style: const TextStyle(
+                                          fontSize: 18.0,
+                                          fontWeight: FontWeight.w200,
+                                        ),
+                                      ),
                                     ],
                                   ),
                                 ),
+
                                 Padding(
                                   padding: const EdgeInsets.fromLTRB(8.0, 0.0, 8.0, 0.0),
-                                  child: Text("Level: ${examItem.level} | Cost: \$${examItem.cost} | Duration: ${examItem.duration}",
+                                  child: Text(
+                                      "Questions: ${examItem.questions} | Cost: \$${examItem.cost} | Duration: ${examItem.duration}",
                                       style: const TextStyle(
                                         fontSize: 14.0,
+                                        fontWeight: FontWeight.w300,
                                       )
                                   ),
                                 ),
