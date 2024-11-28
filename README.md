@@ -12,15 +12,36 @@ Example demo to display certifications.
 
 ## Certification
 
-Main screen release note demo.
+### Certification screen.
+
+Displays the certifications for the provider. Each certificate can be selected for additional detail.
 
 ![cert_exam_main](https://github.com/rosera/demo_certs_exam/blob/main/screenshots/cert_exam_main.png "Mobile App")
 
-## Certification Detail
+### Certification screen.
 
-Detail screen showing release note.
+Certification information displays the criteria for the and high level objectives.
 
-![cert_exam_detail](https://github.com/rosera/demo_certs_exam/blob/main/screenshots/cert_exam_detail.png "Mobile App")
+![cert_exam_cert](https://github.com/rosera/demo_certs_exam/blob/main/screenshots/cert_exam_cert.png "Mobile App")
+
+### Topic screen.
+
+Topics information displays the guidance on the examination. 
+
+![cert_exam_topics](https://github.com/rosera/demo_certs_exam/blob/main/screenshots/cert_exam_topics.png "Mobile App")
+
+### Plan screen.
+
+Plan information outlines desired knowledge to pass the certification.
+
+![cert_exam_plan](https://github.com/rosera/demo_certs_exam/blob/main/screenshots/cert_exam_plan.png "Mobile App")
+
+
+### Media screen.
+
+Media information provides links to information on training, blogs, books, videos relating to the certification.
+
+![cert_exam_media](https://github.com/rosera/demo_certs_exam/blob/main/screenshots/cert_exam_media.png "Mobile App")
 
 ## Packages
 
