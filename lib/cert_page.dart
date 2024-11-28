@@ -53,7 +53,8 @@ class _CertificationPageState extends State<CertificationPage> {
     // if (isCertificationFirstTime){
     // Add await to transition Future<String> to String
     String productList = await loadRemoteData(
-        'https://storage.googleapis.com/roselabs-poc-images/radarr-app/certin.json');
+      // 'https://storage.googleapis.com/roselabs-poc-images/radarr-app/certin.json');
+      'https://storage.googleapis.com/roselabs-poc-images/radarr-app/certin-r2.json');
     // Decode the string into a json object
     final jsonResponse = json.decode(productList);
 
@@ -92,7 +93,7 @@ class _CertificationPageState extends State<CertificationPage> {
     return Scaffold(
       appBar: AppBar(
         // backgroundColor: Colors.black,
-        title: const Text('GCP Certifications'),
+        title: const Text('Google Cloud Certifications'),
       ),
       body: Column(
         children: [

@@ -1,3 +1,4 @@
+
 // Topic
 // Topics for Google Cloud Certifications
 // -----------------------------------------------------------------------------
@@ -36,20 +37,22 @@ class TopicItem {
 // Certification
 // Information on the Google Cloud Certifications
 class Topics{
-  final List<TopicItem> topicItem;
+  final List<TopicItem> topicItems;
 
   // Constructor
-  Topics({required this.topicItem});
+  Topics({
+    required this.topicItems,
+  });
 
   // Use a Factory to enable processing to be perform + return value
   factory Topics.fromJson(Map<String, dynamic> json) {
     // Use the json list name as reference
     var list = json['topics'] as List;
 
-    List<TopicItem> products = list
-        .map((productItems) => TopicItem.fromJson(productItems))
+    List<TopicItem> topics = list
+        .map((topicItems) => TopicItem.fromJson(topicItems))
         .toList();
 
-    return Topics(topicItem: products);
+    return Topics( topicItems: topics);
   }
 }
