@@ -207,7 +207,7 @@ class _CertificationPageState extends State<CertificationPage> {
                                     ),
                                   ),
                                 ),
-                                SizedBox(height: 10.0),
+                                const SizedBox(height: 10.0),
                                 const Divider(
                                   height: 1.0,
                                   thickness: 0.5,
@@ -244,7 +244,7 @@ class _CertificationPageState extends State<CertificationPage> {
                                       // Labels (Announcement, Fixed, Security)
                                       // buildSectionLabels(examItem.level),
                                       buildSectionCertLabels(examItem.level, examItem.image),
-                                      SizedBox(width: 10.0),
+                                      const SizedBox(width: 10.0),
                                       Text(
                                         examItem.level,
                                         style: const TextStyle(

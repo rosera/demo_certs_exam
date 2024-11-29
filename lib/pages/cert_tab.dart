@@ -112,7 +112,7 @@ class CertificationTabPage extends StatelessWidget {
                   ),),
               ),
             ),
-            SizedBox(height: 10.0),
+            const SizedBox(height: 10.0),
         
           ],
         ),

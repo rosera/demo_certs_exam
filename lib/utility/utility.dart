@@ -15,21 +15,21 @@ Widget buildSectionCertLabels(String content, String imageLink) {
   }
 }
 
-Widget _buildLabel(String label, Color color) {
-  return Padding(
-      padding: const EdgeInsets.only(right: 5),
-      child: badges.Badge(
-        // badgeStyle: const badges.BadgeStyle(badgeColor: Colors.red),
-        badgeStyle: badges.BadgeStyle(badgeColor: color),
-        badgeContent: Text(
-          label,
-          style: const TextStyle(color: Colors.white, fontSize: 16),
-        ),
-        position: badges.BadgePosition.topEnd(top: -10, end: -4),
-        // child: const Icon(Icons.event_note_outlined, size: 40),
-        child: const Icon(Icons.person, size: 40),
-      ));
-}
+// Widget _buildLabel(String label, Color color) {
+//   return Padding(
+//       padding: const EdgeInsets.only(right: 5),
+//       child: badges.Badge(
+//         // badgeStyle: const badges.BadgeStyle(badgeColor: Colors.red),
+//         badgeStyle: badges.BadgeStyle(badgeColor: color),
+//         badgeContent: Text(
+//           label,
+//           style: const TextStyle(color: Colors.white, fontSize: 16),
+//         ),
+//         position: badges.BadgePosition.topEnd(top: -10, end: -4),
+//         // child: const Icon(Icons.event_note_outlined, size: 40),
+//         child: const Icon(Icons.person, size: 40),
+//       ));
+// }
 
 Widget _buildCertLabel(String label, String image, Color color) {
   return Padding(
