@@ -18,9 +18,9 @@ class CertificationItem {
   final int cost;
   final int duration;
   final int experience;
-  final List<TopicItem>topics;
-  final List<PlanItem>plans;
-  final List<LearningItem>learnings;
+  // final List<TopicItem?>topics;
+  // final List<PlanItem?>plans;
+  // final List<LearningItem?>learnings;
 
   // Constructor
   CertificationItem({
@@ -35,27 +35,31 @@ class CertificationItem {
     required this.cost,
     required this.duration,
     required this.experience,
-    required this.topics,
-    required this.plans,
-    required this.learnings,
+    // required this.topics,
+    // required this.plans,
+    // required this.learnings,
   });
 
   // Use a Factory to enable processing to be perform + return value
   factory CertificationItem.fromJson(Map<String, dynamic> json) {
-    var list = json['topics'] as List;
-    var listPlans = json['plan'] as List;
-    var listLearnings = json['learning'] as List;
+    // var list = json['topics'] as List;
+    // var listPlans = json['plan'] as List;
+    // var listLearnings = json['learning'] as List;
 
-    List<TopicItem> topicList = list.map((topics) =>
-        TopicItem.fromJson(topics)).toList();
+    // List<TopicItem> topicList = list.map((topics) => TopicItem?.fromJson(topics)).toList();
+    // List<PlanItem> planList = list.map((plans) => PlanItem?.fromJson(plans)).toList();
+    // List<LearningItem> learningList = list.map((learnings) => LearningItem?.fromJson(learnings)).toList();
 
-    List<PlanItem> plans = listPlans
-        .map((planItems) => PlanItem.fromJson(planItems))
-        .toList();
+   // List<TopicItem> topicList = list.map((topics) =>
+   //     TopicItem.fromJson(topics)).toList();
 
-    List<LearningItem> learnings = listLearnings
-        .map((learningItems) => LearningItem.fromJson(learningItems))
-        .toList();
+  //  List<PlanItem> plans = listPlans
+  //      .map((planItems) => PlanItem.fromJson(planItems))
+  //      .toList();
+
+//    List<LearningItem> learnings = listLearnings
+//        .map((learningItems) => LearningItem.fromJson(learningItems))
+//        .toList();
 
     return CertificationItem(
       tag: json['tag'],
@@ -69,9 +73,9 @@ class CertificationItem {
       cost: json['cost'],
       duration: json['duration'],
       experience: json['experience'],
-      topics: topicList,
-      plans: plans,
-      learnings: learnings,
+      // topics: topicList,
+      // plans: planList,
+      // learnings: learningList,
     );
   }
 }
@@ -86,7 +90,7 @@ class Certifications {
 
   // Use a Factory to enable processing to be perform + return value
   factory Certifications.fromJson(Map<String, dynamic> json) {
-    var list = json['gcp'] as List;
+    var list = json['exams'] as List;
 
     List<CertificationItem> products = list
         .map((productItems) => CertificationItem.fromJson(productItems))

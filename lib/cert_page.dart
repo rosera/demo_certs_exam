@@ -54,7 +54,8 @@ class _CertificationPageState extends State<CertificationPage> {
     // Add await to transition Future<String> to String
     String productList = await loadRemoteData(
       // 'https://storage.googleapis.com/roselabs-poc-images/radarr-app/certin.json');
-      'https://storage.googleapis.com/roselabs-poc-images/radarr-app/certin-r2.json');
+      // 'https://storage.googleapis.com/roselabs-poc-images/radarr-app/certin-r3.json');
+      'https://storage.googleapis.com/roselabs-poc-images/radarr-app/cncf-r31.json');
     // Decode the string into a json object
     final jsonResponse = json.decode(productList);
 
@@ -224,7 +225,7 @@ class _CertificationPageState extends State<CertificationPage> {
                                 Padding(
                                   padding: const EdgeInsets.fromLTRB(8.0, 10.0, 8.0, 10.0),
                                   child: Text(
-                                    examItem.description,
+                                    stripNonPrintingCharacters(examItem.description),
                                     maxLines: 50,
                                     overflow: TextOverflow.ellipsis,
                                     selectionColor: Colors.white60,

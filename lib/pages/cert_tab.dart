@@ -1,3 +1,4 @@
+import 'package:demo_cert_exam/utility/utility.dart';
 import 'package:flutter/material.dart';
 import '../model/cert_model.dart';
 
@@ -106,7 +107,8 @@ class CertificationTabPage extends StatelessWidget {
               ),
               child: Padding(
                 padding: const EdgeInsets.all(16.0),
-                child: Text(cert.description,
+                child: Text(
+                  stripNonPrintingCharacters(cert.description),
                   style: const TextStyle(
                     fontSize: 16.0,
                   ),),

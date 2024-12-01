@@ -42,9 +42,12 @@ class _CertificationHomePageState extends State<CertificationHomePage> {
         body: TabBarView(
           children: [
             CertificationTabPage(cert: widget.certification),
-            TopicTabPage(cert: widget.certification),
-            PlanTabPage(cert: widget.certification),
-            MediaTabPage(cert: widget.certification),
+            Text("Topics"),
+            Text("Plans"),
+            Text("Media"),
+            // TopicTabPage(cert: widget.certification),
+            // PlanTabPage(cert: widget.certification),
+            // MediaTabPage(cert: widget.certification),
           ],
         ),
       ),
