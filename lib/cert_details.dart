@@ -1,6 +1,7 @@
 import 'package:demo_cert_exam/pages/cert_tab.dart';
 import 'package:demo_cert_exam/pages/media_tab.dart';
 import 'package:demo_cert_exam/pages/plan_tab.dart';
+import 'package:demo_cert_exam/pages/summary_tab.dart';
 import 'package:demo_cert_exam/pages/topic_tab.dart';
 import 'package:flutter/material.dart';
 import 'model/cert_model.dart';
@@ -42,12 +43,13 @@ class _CertificationHomePageState extends State<CertificationHomePage> {
         body: TabBarView(
           children: [
             CertificationTabPage(cert: widget.certification),
-            Text("Topics"),
-            Text("Plans"),
-            Text("Media"),
+            // Text("Topics"),
             // TopicTabPage(cert: widget.certification),
-            // PlanTabPage(cert: widget.certification),
-            // MediaTabPage(cert: widget.certification),
+            SummaryTabPage(cert: widget.certification),
+            // Text("Plans"),
+            PlanTabPage(cert: widget.certification),
+            // Text("Media"),
+            MediaTabPage(cert: widget.certification),
           ],
         ),
       ),

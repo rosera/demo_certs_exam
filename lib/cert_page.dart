@@ -53,9 +53,8 @@ class _CertificationPageState extends State<CertificationPage> {
     // if (isCertificationFirstTime){
     // Add await to transition Future<String> to String
     String productList = await loadRemoteData(
-      // 'https://storage.googleapis.com/roselabs-poc-images/radarr-app/certin.json');
-      // 'https://storage.googleapis.com/roselabs-poc-images/radarr-app/certin-r3.json');
-      'https://storage.googleapis.com/roselabs-poc-images/radarr-app/cncf-r31.json');
+      // 'https://storage.googleapis.com/roselabs-poc-images/radarr-app/cncf-r31.json');
+      'https://storage.googleapis.com/roselabs-poc-images/radarr-app/cncf-r51.json');
     // Decode the string into a json object
     final jsonResponse = json.decode(productList);
 
@@ -94,7 +93,7 @@ class _CertificationPageState extends State<CertificationPage> {
     return Scaffold(
       appBar: AppBar(
         // backgroundColor: Colors.black,
-        title: const Text('Google Cloud Certifications'),
+        title: const Text('CNCF Certifications'),
       ),
       body: Column(
         children: [
@@ -151,7 +150,7 @@ class _CertificationPageState extends State<CertificationPage> {
                 } else if (snapshot.hasError) {
                   return Center(child: Text('Error: ${snapshot.error}'));
                 } else if (!snapshot.hasData || snapshot.data!.certificationItem.isEmpty) {
-                  return const Center(child: Text('No Google Cloud certifications found.'));
+                  return const Center(child: Text('No certifications found.'));
                 }
 
                 // final releaseNotes = snapshot.data!;

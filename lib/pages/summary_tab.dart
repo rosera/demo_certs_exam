@@ -9,10 +9,10 @@ List<String> topics = [
   "Section Five",
 ];
 
-class TopicTabPage extends StatelessWidget {
+class SummaryTabPage extends StatelessWidget {
   final CertificationItem cert;
 
-  const TopicTabPage({super.key, required this.cert});
+  const SummaryTabPage({super.key, required this.cert});
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +23,7 @@ class TopicTabPage extends StatelessWidget {
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const SizedBox(height: 10.0),
+          // const SizedBox(height: 10.0),
 
           // TODO: ADD HEADER
           // const Padding(
@@ -36,7 +36,7 @@ class TopicTabPage extends StatelessWidget {
           // TODO: Display Topics
           Expanded(
             child: ListView.builder(
-                itemCount: cert.topics.length,
+                itemCount: cert.domains.length,
                 itemBuilder: (context, index) {
                   return SizedBox(
                     // height: 300,
@@ -59,19 +59,17 @@ class TopicTabPage extends StatelessWidget {
                           children: [
                             Padding(
                               padding: const EdgeInsets.all(12.0),
-                              child: Text("${index+1}. ${cert.topics[index]!.title}",
+                              child: Text("${cert.domains[index]!.heading} ${cert.domains[index]!.percent}",
                                 style: const TextStyle(
                                   fontSize: 18.0,
                                 ),),
                             ),
 
-                            Padding(
-                              padding: const EdgeInsets.all(12.0),
-                              child: Text(cert.learnings[index]!.description,
-                                style: const TextStyle(
-                                  fontSize: 16.0,
-                                  color: Colors.white60,
-                                ),),
+                            SizedBox(
+                              height: 200,
+                              // TODO: Dynamic height
+                              // height: 300,
+                              child: MyDomainDetails(domains: cert.domains[index]!.topics),
                             ),
 
                           ],
@@ -87,4 +85,45 @@ class TopicTabPage extends StatelessWidget {
     );
   }
 
+}
+
+// Assuming you have the Domain class defined from the previous response
+class MyDomainDetails extends StatefulWidget {
+  final List<String> domains;
+
+  const MyDomainDetails({super.key, required this.domains});
+
+  @override
+  State<MyDomainDetails> createState() => _MyDomainDetailsState();
+}
+
+class _MyDomainDetailsState extends State<MyDomainDetails> {
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(12.0),
+      child: ListView.builder(
+        itemCount: widget.domains.length,
+        itemBuilder: (context, index) {
+          // Access the current Domain object
+          final domain = widget.domains[index];
+
+          return Column( // Wrap each topic in a Column for spacing
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text("${index+1}. ${domain}",
+                  style: const TextStyle(
+                    fontSize: 16.0,
+                  ),
+                ),
+              ),
+
+            ],
+          );
+        },
+      ),
+    );
+  }
 }
