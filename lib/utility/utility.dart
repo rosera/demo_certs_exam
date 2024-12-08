@@ -18,9 +18,9 @@ Widget _buildDomainLabel(String label, String image, Color color) {
             fontSize: 10
         ),
       ),
-      position: badges.BadgePosition.topEnd(top: -10, end: -20),
+      position: badges.BadgePosition.topEnd(top: -10, end: -10),
       child: SizedBox(
-        width: 50,
+        width: 60,
         child: Image(
           image: Image.network(image).image,
           fit: BoxFit.cover,
@@ -35,7 +35,7 @@ Widget buildSectionCertLabels(String content, String imageLink) {
   if (content.contains('Professional')) {
     return _buildCertLabel('P', imageLink, Colors.green);
   } else if (content.contains('Associate')) {
-    return _buildCertLabel('A', imageLink, Colors.blueGrey);
+    return _buildCertLabel('A', imageLink, Colors.orangeAccent);
   } else if (content.contains('Foundational')) {
     return _buildCertLabel('F', imageLink, Colors.deepOrange);
   } else if (content.contains('Fellow')) {

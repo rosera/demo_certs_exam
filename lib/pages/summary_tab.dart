@@ -55,33 +55,60 @@ class SummaryTabPage extends StatelessWidget {
                             width: 1.0,
                           ),
                         ),
-                        child: Column(
+                        child: Row(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Row(
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: buildDomainCertLabels(cert.domains[index]!.percent, cert.image),
+                            ),
+
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Padding(
-                                  padding: const EdgeInsets.all(16.0),
-                                  child: Text("${cert.domains[index]!.heading}",
-                                    style: const TextStyle(
-                                      fontSize: 18.0,
-                                    ),),
+                                  // padding: const EdgeInsets.all(16.0),
+                                  padding: const EdgeInsets.fromLTRB(8.0, 16.0,8.0,0),
+                                  child: SizedBox(
+                                    width: 250,
+                                    child: Text("${cert.domains[index]!.heading}",
+                                      maxLines: 2,
+                                      style: const TextStyle(
+                                        fontSize: 18.0,
+                                      ),),
+                                  ),
                                 ),
-                                const Spacer(),
-                                Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: buildDomainCertLabels(cert.domains[index]!.percent, cert.image),
+
+                                SizedBox(
+                                  // TODO: Set the SizedBox to length of topics
+                                  // height: 70.0 * cert.domains[index]!.topics.length,
+                                  height: 50.0,
+                                  // TODO: Dynamic height
+                                  // height: 300,
+                                  // child: MyDomainDetails(domains: cert.domains[index]!.topics),
+                                  child: Padding(
+                                    padding: const EdgeInsets.fromLTRB(8.0, 0,0,0),
+                                    child: Text(
+                                      "Domain topics: ${cert.domains[index]!.topics.length.toString()}",
+                                      style: const TextStyle(
+                                        fontSize: 16.0,
+                                        color: Colors.white60,
+                                      ),
+                                    ),
+                                  ),
                                 ),
+
                               ],
                             ),
 
-                            SizedBox(
-                              // TODO: Set the SizedBox to legnth of topics
-                              height: 70.0 * cert.domains[index]!.topics.length,
-                              // TODO: Dynamic height
-                              // height: 300,
-                              child: MyDomainDetails(domains: cert.domains[index]!.topics),
-                            ),
+
+                            // SizedBox(
+                            //   // TODO: Set the SizedBox to length of topics
+                            //   height: 70.0 * cert.domains[index]!.topics.length,
+                            //   // TODO: Dynamic height
+                            //   // height: 300,
+                            //   child: MyDomainDetails(domains: cert.domains[index]!.topics),
+                            // ),
 
                           ],
                         ),
