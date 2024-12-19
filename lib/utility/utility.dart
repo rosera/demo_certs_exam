@@ -7,15 +7,26 @@ Widget buildDomainCertLabels(String content, String imageLink) {
 }
 
 Widget _buildDomainLabel(String label, String image, Color color) {
+  // String badgeLabel = label.replaceAll("%", "");
+
   return Padding(
     padding: const EdgeInsets.only(right: 5),
     child: badges.Badge(
-      badgeStyle: badges.BadgeStyle(badgeColor: color),
+      badgeStyle: badges.BadgeStyle(
+          badgeColor: color,
+          borderSide: BorderSide(
+            width: 2,
+            color: Colors.white54,
+          ),
+      ),
       badgeContent: Text(
-        label,
+        label.replaceAll("%", "").padLeft(2, "0"),
+        // label.padLeft(3, "0"),
+        // badgeLabel.padLeft(2, "0"),
         style: const TextStyle(
             color: Colors.white,
-            fontSize: 10
+            fontSize: 14,
+            fontWeight: FontWeight.bold,
         ),
       ),
       position: badges.BadgePosition.topEnd(top: -10, end: -10),

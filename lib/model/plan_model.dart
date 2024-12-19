@@ -27,23 +27,23 @@ class PlanItem {
   }
 }
 
-class Plans{
-  final List<PlanItem> planItems;
-
-  // Constructor
-  Plans({
-    required this.planItems,
-  });
-
-  // Use a Factory to enable processing to be perform + return value
-  factory Plans.fromJson(Map<String, dynamic> json) {
-    // Use the json list name as reference
-    var list = json['plan'] as List;
-
-    List<PlanItem> plans = list
-        .map((planItems) => PlanItem.fromJson(planItems))
-        .toList();
-
-    return Plans( planItems: plans);
-  }
-}
+// class Plans{
+//   final List<PlanItem> planItems;
+//
+//   // Constructor
+//   Plans({
+//     required this.planItems,
+//   });
+//
+//   // Use a Factory to enable processing to be perform + return value
+//   factory Plans.fromJson(Map<String, dynamic> json) {
+//     // Use the json list name as reference
+//     var list = json['plan'] as List;
+//
+//     List<PlanItem> plans = list
+//         .map((planItems) => PlanItem.fromJson(planItems))
+//         .toList();
+//
+//     return Plans( planItems: plans);
+//   }
+// }

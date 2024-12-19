@@ -117,7 +117,7 @@ class Certifications {
 }
 // Certifications
 // -----------------------------------------------------------------------------
-List<CertificationItem> professional = [];
-List<CertificationItem> associate = [];
-List<CertificationItem> foundational = [];
-List<CertificationItem> fellow = [];
+// List<CertificationItem> professional = [];
+// List<CertificationItem> associate = [];
+// List<CertificationItem> foundational = [];
+// List<CertificationItem> fellow = [];
